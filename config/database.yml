@@ -1,4 +1,4 @@
-<% project_name = 'queeresources_api' %>
+<% project_name = 'queeresources' %>
 
 default: &default
   adapter: postgresql
