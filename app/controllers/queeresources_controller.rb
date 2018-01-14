@@ -15,7 +15,7 @@ class QueeresourcesController < ApplicationController
 
   # POST /queeresources
   def create
-    @queeresource = Queeresource.new(queeresource_params)
+    @queeresource = current_user.Queeresources.build(queeresource_params)
 
     if @queeresource.save
       render json: @queeresource, status: :created, location: @queeresource
@@ -41,7 +41,7 @@ class QueeresourcesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_queeresource
-      @queeresource = Queeresource.find(params[:id])
+      @queeresource = current_user.Queeresources.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
