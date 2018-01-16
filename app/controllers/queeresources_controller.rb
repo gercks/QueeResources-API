@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QueeresourcesController < OpenReadController
-  before_action :set_queeresource, only: %i[show update destroy]
+  before_action :set_queeresource, only: %i[update destroy]
 
   # GET /queeresources
   def index
@@ -10,9 +10,9 @@ class QueeresourcesController < OpenReadController
     render json: @queeresources
   end
 
-  # GET /queeresources/1
+  # GET /queeresources/
   def show
-    render json: @queeresource
+    render json: Queeresource.find(params[:id])
   end
 
   # POST /queeresources
@@ -41,10 +41,11 @@ class QueeresourcesController < OpenReadController
     @queeresource.destroy
   end
 
+  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_queeresource
-    @queeresource = current_user.Queeresources.find(params[:id])
+    @queeresource = current_user.queeresources.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
