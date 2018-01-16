@@ -1,5 +1,7 @@
-class QueeresourcesController < ApplicationController
-  before_action :set_queeresource, only: [:show, :update, :destroy]
+# frozen_string_literal: true
+
+class QueeresourcesController < OpenReadController
+  before_action :set_queeresource, only: %i[show update destroy]
 
   # GET /queeresources
   def index
@@ -15,7 +17,8 @@ class QueeresourcesController < ApplicationController
 
   # POST /queeresources
   def create
-    @queeresource = current_user.Queeresources.build(queeresource_params)
+    @queeresource = current_user.queeresources.build(queeresource_params)
+    # @queeresource = current_user.queeresources.build(queeresource_params)
 
     if @queeresource.save
       render json: @queeresource, status: :created, location: @queeresource
@@ -38,14 +41,18 @@ class QueeresourcesController < ApplicationController
     @queeresource.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_queeresource
-      @queeresource = current_user.Queeresources.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def queeresource_params
-      params.require(:queeresource).permit(:user_id, :name, :description, :location, :website, :orgtype, :popfocus)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_queeresource
+    @queeresource = current_user.Queeresources.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def queeresource_params
+    params.require(:queeresource).permit(:user_id, :name, :description,
+                                         :location, :website, :orgtype,
+                                         :popfocus)
+  end
+
+  private :set_queeresource, :queeresource_params
 end
