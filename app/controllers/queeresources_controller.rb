@@ -4,11 +4,26 @@ class QueeresourcesController < OpenReadController
   before_action :set_queeresource, only: %i[update destroy]
 
   # GET /queeresources
-  def index
-    @queeresources = Queeresource.all
+  # def index
+  #   @queeresources = Queeresource.all
+  #
+  #   render json: @queeresources
+  # end
 
+  def index
+    if params[:filter]
+      @queeresources = Queeresource.where('user_id' => params[:filter][:user_id])
+    else
+      @queeresources = Queeresource.all
+    end
     render json: @queeresources
   end
+
+  # def myqrs
+  # @queeresources = current_user.queeresources.all
+  #
+  # render json: @queeresources
+  # end
 
   # GET /queeresources/
   def show
