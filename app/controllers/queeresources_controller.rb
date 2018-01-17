@@ -4,12 +4,6 @@ class QueeresourcesController < OpenReadController
   before_action :set_queeresource, only: %i[update destroy]
 
   # GET /queeresources
-  # def index
-  #   @queeresources = Queeresource.all
-  #
-  #   render json: @queeresources
-  # end
-
   def index
     if params[:filter]
       @queeresources = Queeresource.where('user_id' => params[:filter][:user_id])
@@ -19,13 +13,6 @@ class QueeresourcesController < OpenReadController
     render json: @queeresources
   end
 
-  # def myqrs
-  # @queeresources = current_user.queeresources.all
-  #
-  # render json: @queeresources
-  # end
-
-  # GET /queeresources/
   def show
     render json: Queeresource.find(params[:id])
   end
@@ -33,7 +20,6 @@ class QueeresourcesController < OpenReadController
   # POST /queeresources
   def create
     @queeresource = current_user.queeresources.build(queeresource_params)
-    # @queeresource = current_user.queeresources.build(queeresource_params)
 
     if @queeresource.save
       render json: @queeresource, status: :created, location: @queeresource
