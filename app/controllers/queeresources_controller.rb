@@ -5,10 +5,11 @@ class QueeresourcesController < OpenReadController
 
   # GET /queeresources
   def index
-    if params[:filter]
+    if params[:filter] && params[:filter][:orgtype]
       @queeresources = Queeresource.where('orgtype' => params[:filter][:orgtype])
-    elsif params[:filter]
+    elsif params[:filter] && params[:filter][:user_id]
       @queeresources = Queeresource.where('user_id' => params[:filter][:user_id])
+      # @queeresources = current_user.queeresources.where('user_id' => params[:filter][:user_id])
     else
       @queeresources = Queeresource.all
     end
