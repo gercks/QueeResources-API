@@ -5,11 +5,13 @@ class QueeresourcesController < OpenReadController
 
   # GET /queeresources
   def index
+    #checks if get request is for queeresources by orgtype, as via homepage
     if params[:filter] && params[:filter][:orgtype]
       @queeresources = Queeresource.where('orgtype' => params[:filter][:orgtype])
+      #checks if get request is for user's particular set of resources
     elsif params[:filter] && params[:filter][:user_id]
       @queeresources = Queeresource.where('user_id' => params[:filter][:user_id])
-      # @queeresources = current_user.queeresources.where('user_id' => params[:filter][:user_id])
+      # otherwise does regular index
     else
       @queeresources = Queeresource.all
     end
